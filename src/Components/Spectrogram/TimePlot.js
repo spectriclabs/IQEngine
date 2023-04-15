@@ -2,7 +2,7 @@
 // Copyright (c) 2023 Marc Lichtman
 // Licensed under the MIT License
 
-import Plot from 'react-plotly.js';
+import { SigPlot, ArrayLayer } from 'react-sigplot';
 import React, { useEffect, useState } from 'react';
 import { template } from '../../Utils/plotlyTemplate';
 
@@ -37,40 +37,10 @@ export const TimePlot = (props) => {
 
   return (
     <div>
-      <Plot
-        data={[
-          {
-            y: I,
-            type: 'scatter',
-            name: 'I',
-          },
-          {
-            y: Q,
-            type: 'scatter',
-            name: 'Q',
-          },
-        ]}
-        layout={{
-          title: 'Time Domain Plot',
-          width: 700,
-          height: 600,
-          dragmode: 'pan',
-          showlegend: true,
-          template: template,
-          xaxis: {
-            title: 'Time',
-            rangeslider: { range: [0, 1000] },
-          },
-          yaxis: {
-            title: 'Samples',
-            fixedrange: true,
-          },
-        }}
-        config={{
-          displayModeBar: true,
-          scrollZoom: true,
-        }}
-      />
+      <SigPlot width="700px" height="600px" options={{noreadout: true, all:true}}>
+          <ArrayLayer data={I}/>
+          <ArrayLayer data={Q}/>
+      </SigPlot>
     </div>
   );
 };
